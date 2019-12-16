@@ -769,8 +769,7 @@ public class CatalogueTest2 {
 		cat.addProduit("Treets", 10, 4);
 		cat.addProduit("Raider", 1, 10);
 		cat.addProduit("Twix", 10.4, 1);
-		assertEquals("toString catalogue avec un total de deux chiffres après virgule", resultatAttendu,
-				cat.toString());
+		assertEquals("toString catalogue avec un total de deux chiffres après virgule", resultatAttendu, cat.toString());
 	}
 
 	@Test
