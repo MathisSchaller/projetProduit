@@ -4,6 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import application.AchatVenteControlleur;
+import application.ProduitControlleur;
+import application.StockControlleur;
 import metier.Catalogue;
 
 
@@ -20,11 +23,17 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btVente;
 	private JButton btQuitter;
 
-	Catalogue catalogueProduit;
+	private Catalogue catalogueProduit;
+	private ProduitControlleur produitControlleur;
+	private AchatVenteControlleur achatVenteControlleur;
+	private StockControlleur stockControlleur;
 	
 	public FenetrePrincipale() {
 		
 		catalogueProduit = new Catalogue();
+		produitControlleur = new ProduitControlleur(catalogueProduit);
+		achatVenteControlleur = new AchatVenteControlleur(catalogueProduit);
+		stockControlleur = new StockControlleur(catalogueProduit);
 		
 		setTitle("exercice Produits");
 		setBounds(500, 500, 320, 250);
@@ -80,20 +89,20 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage("ajourd'hui nous allons faire de la programmation en 5 couches");
+			new FenetreAffichage(stockControlleur);
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
-			new FenetreNouveauProduit(catalogueProduit);
+			new FenetreNouveauProduit(produitControlleur);
 		if (e.getSource() == btSupprimerProduit)
-			new FenetreSuppressionProduit(tabProduits);
+			new FenetreSuppressionProduit(produitControlleur);
 //		if (e.getSource() == btNouvelleCategorie)
 //			new FenetreNouvelleCategorie();
 //		if (e.getSource() == btSupprimerCategorie)
 //			new FenetreSuppressionCategorie(tabCategories);
 		if (e.getSource() == btAchat)
-			new FenetreAchat(tabProduits);
+			new FenetreAchat(achatVenteControlleur);
 		if (e.getSource() == btVente)
-			new FenetreVente(tabProduits);
+			new FenetreVente(achatVenteControlleur);
 		if (e.getSource() == btQuitter){
 			System.out.println("Au revoir");
 			System.exit(0);

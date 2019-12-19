@@ -5,6 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import application.ProduitControlleur;
+import exceptions.ProduitException;
 import metier.Catalogue;
 import metier.Utilitaire;
 
@@ -19,9 +20,9 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	private ProduitControlleur produitControlleur;
 
 //	public FenetreNouveauProduit(String[] lesCategories) {
-	public FenetreNouveauProduit(Catalogue catalogueProduit) {	
+	public FenetreNouveauProduit(ProduitControlleur controlleur) {	
 
-		produitControlleur = new ProduitControlleur(catalogueProduit);
+		produitControlleur = controlleur;
 		
 		setTitle("Creation Produit");
 		setBounds(500, 500, 200, 250);
@@ -57,27 +58,15 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		
-		int creationProduit = produitControlleur.ajouterProduit(txtNom.getText(), txtPrixHT.getText(), txtQte.getText());
-		
-		switch(creationProduit)
+		try
 		{
-			case ProduitControlleur.PRODUIT_CREE:
-				System.out.println("Produit créé");
-				break;
-			case ProduitControlleur.PRODUIT_ERREUR_EXISTANT:
-				System.out.println("Produit existe déjà");
-				break;
-			case ProduitControlleur.PRODUIT_ERREUR_NOM:
-				System.out.println("Erreur au niveau du nom");
-				break;
-			case ProduitControlleur.PRODUIT_ERREUR_PRIX:
-				System.out.println("Erreur au niveau du prix");
-				break;
-			case ProduitControlleur.PRODUIT_ERREUR_QUANTITE:
-				System.out.println("Erreur au niveau de la quantité");
-				break;
+			produitControlleur.ajouterProduit(txtNom.getText(), txtPrixHT.getText(), txtQte.getText());
+			JOptionPane.showMessageDialog(this, "Le produit a Ã©tÃ© crÃ©Ã©", "Information", JOptionPane.INFORMATION_MESSAGE);
 		}
-		
+		catch(ProduitException ex)
+		{
+			JOptionPane.showMessageDialog(this, ex.getMessage(), "Erreur", JOptionPane.ERROR_MESSAGE);
+		}
 	}
 
 }

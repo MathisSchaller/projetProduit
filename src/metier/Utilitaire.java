@@ -2,8 +2,20 @@ package metier;
 
 import java.text.ParseException;
 
+/**
+ * @author Mathis Schaller
+ * @author Loïc Petit
+ *
+ * Classe représentant divers utilitaires pour l'application
+ */
 public class Utilitaire {
 
+	/**
+	 * Arrondi un nombre à virgule à la deuxième décimal
+	 * 
+	 * @param nombre Le nombre à arrondir
+	 * @return Le nombre arrondi
+	 */
 	public static double arrondirA2decimal(double nombre)
 	{
 		if(nombre == 0)
@@ -13,6 +25,12 @@ public class Utilitaire {
 		return ((double) Math.round(nombre * 100)) / 100;
 	}
 	
+	/**
+	 * Vérifie si une chaîne de caractères peut être parser en Integer
+	 * 
+	 * @param number Le nombre à parser
+	 * @return True ou false
+	 */
 	public static boolean isInteger(String number)
 	{
 	    try
@@ -26,6 +44,12 @@ public class Utilitaire {
 	    }
 	}
 	
+	/**
+	 * Vérifie si une chaîne de caractères peut être parser en Double
+	 * 
+	 * @param number Le nombre à parser
+	 * @return True ou false
+	 */
 	public static boolean isDouble(String number)
 	{
 	    try

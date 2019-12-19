@@ -44,7 +44,7 @@ public class Produit implements I_Produit {
 	 */
 	@Override
 	public boolean ajouter(int qteAchetee) {
-		if(qteAchetee >= 0)
+		if(qteAchetee > 0)
 		{
 			this.quantiteStock += qteAchetee;
 			return true;
@@ -60,7 +60,7 @@ public class Produit implements I_Produit {
 	 */
 	@Override
 	public boolean enlever(int qteVendue) {
-		if(qteVendue >= 0 && (this.quantiteStock - qteVendue) >= 0)
+		if(qteVendue > 0 && (this.quantiteStock - qteVendue) >= 0)
 		{
 			this.quantiteStock -= qteVendue;
 			return true;
@@ -119,6 +119,11 @@ public class Produit implements I_Produit {
 		return this.quantiteStock * this.getPrixUnitaireTTC();
 	}
 	
+	/**
+	 * Affiche les informations sur le produit
+	 * 
+	 * @return Les informations sur le produit
+	 */
 	@Override
 	public String toString() {
 		String message = getNom() + " - prix HT : " + String.format("%.2f", getPrixUnitaireHT()) + " € - prix TTC : " + String.format("%.2f", getPrixUnitaireTTC()) + " € - quantité en stock : " + getQuantite() + "\n";

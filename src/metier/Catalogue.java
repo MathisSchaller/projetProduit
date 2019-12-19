@@ -265,6 +265,8 @@ public class Catalogue implements I_Catalogue {
 	@Override
 	/**
 	 * Affiche le catalogue
+	 * 
+	 * @return Les informations sur les produits dans le catalogue
 	 */
 	public String toString() {
 		String message = "";
@@ -280,23 +282,4 @@ public class Catalogue implements I_Catalogue {
 		message += "\n" + "Montant total TTC du stock : " + String.format("%.2f", getMontantTotalTTC()) + " €";
 		return message;
 	}
-	
-	@SuppressWarnings("unused")
-	public static void main(String[] args) {
-		Catalogue test = new Catalogue();
-
-		String resultatAttendu = "Mars - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 5" + "\n"
-				+ "Treets - prix HT : 10,00 € - prix TTC : 12,00 € - quantité en stock : 4" + "\n"
-				+ "Raider - prix HT : 1,00 € - prix TTC : 1,20 € - quantité en stock : 10" + "\n"
-				+ "Twix - prix HT : 10,40 € - prix TTC : 12,48 € - quantité en stock : 1" + "\n" + "\n"
-				+ "Montant total TTC du stock : 132,48 €";
-		
-		test.addProduit("Mars", 10, 5);
-		test.addProduit("Treets", 10, 4);
-		test.addProduit("Raider", 1, 10);
-		test.addProduit("Twix", 10.4, 1);
-		System.out.println(test);
-		System.out.println(resultatAttendu);
-	}
-
 }

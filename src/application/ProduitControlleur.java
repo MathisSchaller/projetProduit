@@ -1,18 +1,22 @@
 package application;
 
+import exceptions.ProduitException;
 import metier.Catalogue;
 import metier.Utilitaire;
 import presentation.FenetreNouveauProduit;
 import presentation.FenetreSuppressionProduit;
 
+/**
+ * @author Mathis Schaller
+ * @author Lo�c Petit
+ *
+ * Classe représentant le controlleur pour l'ajout et la suppression de produits
+ */
 public class ProduitControlleur {
 	
-	public final static int PRODUIT_CREE = 0;
-	public final static int PRODUIT_ERREUR_EXISTANT = 1;
-	public final static int PRODUIT_ERREUR_NOM = 2;
-	public final static int PRODUIT_ERREUR_PRIX = 3;
-	public final static int PRODUIT_ERREUR_QUANTITE = 4;
-	
+	/**
+	 * Catalogue de produits
+	 */
 	private Catalogue catalogueProduit;
 
 	/**
@@ -31,67 +35,76 @@ public class ProduitControlleur {
 	 * @param prix Prix du produit a ajouter
 	 * @param qte Quantité du produit a ajouter
 	 */
-	public int ajouterProduit(String nom, String prix, String qte) {
+	public void ajouterProduit(String nom, String prix, String qte) throws ProduitException {
 		
 		double l_prix = 0.0;
 		int l_qte = 0;
 		
 		if(nom.isEmpty())
 		{
-			return ProduitControlleur.PRODUIT_ERREUR_NOM;
+			throw new ProduitException("Le nom du produit est vide");
 		}
 		
-		// V�rification du prix
+		// V�rification du prix
 		if(Utilitaire.isDouble(prix.replaceAll(",", ".")))
 		{
 			l_prix = Double.parseDouble(prix.replaceAll(",", "."));
 			
 			if(l_prix <= 0)
 			{
-				System.out.println("N�gatif");
-				return ProduitControlleur.PRODUIT_ERREUR_PRIX;
+				throw new ProduitException("Le prix du produit est inférieur ou égal à 0");
 			}
 		}
 		else
 		{
-			System.out.println("Pas parsable");
-			return ProduitControlleur.PRODUIT_ERREUR_PRIX;
+			throw new ProduitException("Le prix du produit n'est pas un nombre");
 		}
 		
-		// V�rification de la quantit�
+		// V�rification de la quantit�
 		if(Utilitaire.isInteger(qte))
 		{
 			l_qte = Integer.parseInt(qte);
 			if(l_qte < 0)
 			{
-				System.out.println("N�gatif");
-				return ProduitControlleur.PRODUIT_ERREUR_QUANTITE;
+				throw new ProduitException("La quantité du produit est inférieur à 0");
 			}
 		}
 		else
 		{
-			System.out.println("Pas parsable");
-			return ProduitControlleur.PRODUIT_ERREUR_QUANTITE;
+			throw new ProduitException("La quantité du produit n'est pas un nombre");
 		}
 
-		if(catalogueProduit.addProduit(nom, l_prix, l_qte))
+		if(!catalogueProduit.addProduit(nom, l_prix, l_qte))
 		{
-			return ProduitControlleur.PRODUIT_CREE;
-		}
-		else
-		{
-			return ProduitControlleur.PRODUIT_ERREUR_EXISTANT;
+			throw new ProduitException("Le produit existe déjà");
 		}
 	}
 	
 	/**
 	 * Supprime un produit du catalogue
-	 * @param produit Le produit a supprimer
+	 * 
+	 * @param produit Le nom du produit a supprimer
 	 */
-	public void supprimerProduit(String produit) {	
-		// Suppression du produit
-		catalogueProduit.removeProduit(produit);
+	public void supprimerProduit(String nomProduit) throws ProduitException {
 		
-		// Ouvre une message box de confirmation
+		if(nomProduit == null)
+		{
+			throw new ProduitException("Pas de produit selectionné");
+		}
+		
+		if(!catalogueProduit.removeProduit(nomProduit))
+		{
+			throw new ProduitException("Le produit n'a pas pu être supprimé");
+		}
+	}
+	
+	/**
+	 * Récupère le nom de tous les produits dans le catalogue
+	 * 
+	 * @return un tableau de nom des produits
+	 */
+	public String[] recupererNomProduits()
+	{
+		return catalogueProduit.getNomProduits();
 	}
 }
