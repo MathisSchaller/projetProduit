@@ -4,6 +4,10 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import application.ProduitControlleur;
+import metier.Catalogue;
+import metier.Utilitaire;
+
 public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
 	private JTextField txtPrixHT;
@@ -11,10 +15,14 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	private JTextField txtQte;
 //	private JComboBox<String> combo;
 	private JButton btValider;
+	
+	private ProduitControlleur produitControlleur;
 
 //	public FenetreNouveauProduit(String[] lesCategories) {
-	public FenetreNouveauProduit() {	
+	public FenetreNouveauProduit(Catalogue catalogueProduit) {	
 
+		produitControlleur = new ProduitControlleur(catalogueProduit);
+		
 		setTitle("Creation Produit");
 		setBounds(500, 500, 200, 250);
 		Container contentPane = getContentPane();
@@ -48,7 +56,28 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		this.dispose();
+		
+		int creationProduit = produitControlleur.ajouterProduit(txtNom.getText(), txtPrixHT.getText(), txtQte.getText());
+		
+		switch(creationProduit)
+		{
+			case ProduitControlleur.PRODUIT_CREE:
+				System.out.println("Produit créé");
+				break;
+			case ProduitControlleur.PRODUIT_ERREUR_EXISTANT:
+				System.out.println("Produit existe déjà");
+				break;
+			case ProduitControlleur.PRODUIT_ERREUR_NOM:
+				System.out.println("Erreur au niveau du nom");
+				break;
+			case ProduitControlleur.PRODUIT_ERREUR_PRIX:
+				System.out.println("Erreur au niveau du prix");
+				break;
+			case ProduitControlleur.PRODUIT_ERREUR_QUANTITE:
+				System.out.println("Erreur au niveau de la quantité");
+				break;
+		}
+		
 	}
 
 }

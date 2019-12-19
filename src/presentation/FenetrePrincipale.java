@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
+import metier.Catalogue;
+
 
 
 public class FenetrePrincipale extends JFrame implements ActionListener,
@@ -18,8 +20,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btVente;
 	private JButton btQuitter;
 
+	Catalogue catalogueProduit;
 	
 	public FenetrePrincipale() {
+		
+		catalogueProduit = new Catalogue();
 		
 		setTitle("exercice Produits");
 		setBounds(500, 500, 320, 250);
@@ -30,7 +35,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 		JPanel panQuitter = new JPanel();
 		Container contentPane = getContentPane();
 		contentPane.setLayout(new FlowLayout());
-		btAfficher = new JButton("Quantit�s en stock");
+		btAfficher = new JButton("Quantités en stock");
 		btNouveauProduit = new JButton("Nouveau Produit");
 		btSupprimerProduit = new JButton("Supprimer Produit");
 //		btNouvelleCategorie = new JButton("Nouvelle Categorie");
@@ -78,7 +83,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 			new FenetreAffichage("ajourd'hui nous allons faire de la programmation en 5 couches");
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
-			new FenetreNouveauProduit();
+			new FenetreNouveauProduit(catalogueProduit);
 		if (e.getSource() == btSupprimerProduit)
 			new FenetreSuppressionProduit(tabProduits);
 //		if (e.getSource() == btNouvelleCategorie)

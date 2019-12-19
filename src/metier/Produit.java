@@ -2,13 +2,13 @@ package metier;
 
 /**
  * @author Mathis Schaller
- * @author Lo�c Petit
+ * @author Loïc Petit
  * 
- * Classe repr�sentant un produit
+ * Classe représentant un produit
  */
 public class Produit implements I_Produit {
 	/**
-	 * Quantit� de produits en stock
+	 * Quantité de produits en stock
 	 */
 	private int quantiteStock;
 	/**
@@ -20,7 +20,7 @@ public class Produit implements I_Produit {
 	 */
 	private double prixHT;
 	/**
-	 * Le taux de TVA appliqu� au produit
+	 * Le taux de TVA appliqué au produit
 	 */
 	private static double tauxTVA = 0.2;
 	
@@ -40,7 +40,7 @@ public class Produit implements I_Produit {
 	/**
 	 * Ajouter du stock au produit
 	 * 
-	 * @param qteAchetee Le quantit� � ajouter
+	 * @param qteAchetee Le quantité à ajouter
 	 */
 	@Override
 	public boolean ajouter(int qteAchetee) {
@@ -56,7 +56,7 @@ public class Produit implements I_Produit {
 	/**
 	 * Enlever du stock au produit
 	 * 
-	 * @param qteAchetee Le quantit� � enlever
+	 * @param qteAchetee Le quantité à enlever
 	 */
 	@Override
 	public boolean enlever(int qteVendue) {

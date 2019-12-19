@@ -1,60 +1,97 @@
 package application;
 
 import metier.Catalogue;
+import metier.Utilitaire;
 import presentation.FenetreNouveauProduit;
 import presentation.FenetreSuppressionProduit;
 
 public class ProduitControlleur {
 	
-	private Catalogue cat;
+	public final static int PRODUIT_CREE = 0;
+	public final static int PRODUIT_ERREUR_EXISTANT = 1;
+	public final static int PRODUIT_ERREUR_NOM = 2;
+	public final static int PRODUIT_ERREUR_PRIX = 3;
+	public final static int PRODUIT_ERREUR_QUANTITE = 4;
+	
+	private Catalogue catalogueProduit;
 
 	/**
 	 * Constructeur du controlleur
-	 * @param cat Le catalogue de produits
+	 * 
+	 * @param catalogueProduit Le catalogue de produits
 	 */
-	public ProduitControlleur(Catalogue cat) {
-		this.cat = cat;
+	public ProduitControlleur(Catalogue catalogueProduit) {
+		this.catalogueProduit = catalogueProduit;
 	}
 	
 	/**
-	 * Ouvre la fenetre de suppression
+	 * Ajoute un produit au catalogue
+	 * 
+	 * @param nom Nom du produit a ajouter
+	 * @param prix Prix du produit a ajouter
+	 * @param qte QuantitÃ© du produit a ajouter
 	 */
-	public void demandeSuppression() {
-		// Listes des produits
-		String[] tabProduits = cat.getNomProduits();
+	public int ajouterProduit(String nom, String prix, String qte) {
 		
-		//Ouverture de la fenÃªtre de suppression
-		new FenetreSuppressionProduit(tabProduits);
+		double l_prix = 0.0;
+		int l_qte = 0;
+		
+		if(nom.isEmpty())
+		{
+			return ProduitControlleur.PRODUIT_ERREUR_NOM;
+		}
+		
+		// Vérification du prix
+		if(Utilitaire.isDouble(prix.replaceAll(",", ".")))
+		{
+			l_prix = Double.parseDouble(prix.replaceAll(",", "."));
+			
+			if(l_prix <= 0)
+			{
+				System.out.println("Négatif");
+				return ProduitControlleur.PRODUIT_ERREUR_PRIX;
+			}
+		}
+		else
+		{
+			System.out.println("Pas parsable");
+			return ProduitControlleur.PRODUIT_ERREUR_PRIX;
+		}
+		
+		// Vérification de la quantité
+		if(Utilitaire.isInteger(qte))
+		{
+			l_qte = Integer.parseInt(qte);
+			if(l_qte < 0)
+			{
+				System.out.println("Négatif");
+				return ProduitControlleur.PRODUIT_ERREUR_QUANTITE;
+			}
+		}
+		else
+		{
+			System.out.println("Pas parsable");
+			return ProduitControlleur.PRODUIT_ERREUR_QUANTITE;
+		}
+
+		if(catalogueProduit.addProduit(nom, l_prix, l_qte))
+		{
+			return ProduitControlleur.PRODUIT_CREE;
+		}
+		else
+		{
+			return ProduitControlleur.PRODUIT_ERREUR_EXISTANT;
+		}
 	}
 	
 	/**
 	 * Supprime un produit du catalogue
 	 * @param produit Le produit a supprimer
 	 */
-	public void supprimerProduit(String produit) {		
+	public void supprimerProduit(String produit) {	
 		// Suppression du produit
-		cat.removeProduit(produit);
+		catalogueProduit.removeProduit(produit);
 		
 		// Ouvre une message box de confirmation
 	}
-
-	/**
-	 * Ouvre la fenetre d'ajout de produits
-	 */
-	public void demandeCreation() {
-		//Ouverture de la fenÃªtre de suppression
-		new FenetreNouveauProduit();
-	}
-	
-	/**
-	 * Ajoute un produit au catalogue
-	 * @param nom Nom du produit a ajouter
-	 * @param prix Prix du produit a ajouter
-	 * @param qte QuantitÃ© du produit a ajouter
-	 */
-	public void ajouterProduit(String nom, double prix, int qte) {		
-		// Ajout du produit
-		cat.addProduit(nom, prix, qte);
-	}
-
 }
