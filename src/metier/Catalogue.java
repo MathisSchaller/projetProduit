@@ -279,7 +279,7 @@ public class Catalogue implements I_Catalogue {
 			message += produitTemp;
 		}
 
-		message += "\n" + "Montant total TTC du stock : " + String.format("%.2f", getMontantTotalTTC()) + " â‚¬";
+		message += "\n" + "Montant total TTC du stock : " + String.format("%.2f", getMontantTotalTTC()) + " €";
 		return message;
 	}
 }

@@ -48,7 +48,7 @@ public class AchatVenteControlleur {
 		
 		if(nom == null)
 		{
-			throw new ProduitException("Aucun produit selectionnÃ©");
+			throw new ProduitException("Aucun produit selectionné");
 		}
 		
 		
@@ -58,17 +58,17 @@ public class AchatVenteControlleur {
 			l_qte = Integer.parseInt(qte);
 			if(l_qte <= 0)
 			{
-				throw new ProduitException("La quantitÃ© du produit est infÃ©rieur ou Ã©gal Ã  0");
+				throw new ProduitException("La quantité du produit est inférieur ou égal à 0");
 			}
 		}
 		else
 		{
-			throw new ProduitException("La quantitÃ© du produit n'est pas un nombre");
+			throw new ProduitException("La quantité du produit n'est pas un nombre");
 		}
 
 		if(!catalogueProduit.vendreStock(nom, l_qte))
 		{
-			throw new ProduitException("Pas assez de stock pour vendre cette quantitÃ©");
+			throw new ProduitException("Pas assez de stock pour vendre cette quantité");
 		}
 	}
 	
@@ -84,7 +84,7 @@ public class AchatVenteControlleur {
 		
 		if(nom == null)
 		{
-			throw new ProduitException("Aucun produit selectionnÃ©");
+			throw new ProduitException("Aucun produit selectionné");
 		}
 		
 		
@@ -95,17 +95,17 @@ public class AchatVenteControlleur {
 			
 			if(l_qte <= 0)
 			{
-				throw new ProduitException("La quantitÃ© du produit est infÃ©rieur Ã  0");
+				throw new ProduitException("La quantité du produit est inférieur à  0");
 			}
 		}
 		else
 		{
-			throw new ProduitException("La quantitÃ© du produit n'est pas un nombre");
+			throw new ProduitException("La quantité du produit n'est pas un nombre");
 		}
 
 		if(!catalogueProduit.acheterStock(nom, l_qte))
 		{
-			throw new ProduitException("Pas assez de stock pour acheter cette quantitÃ©");
+			throw new ProduitException("Pas assez de stock pour acheter cette quantité");
 		}
 	}
 }

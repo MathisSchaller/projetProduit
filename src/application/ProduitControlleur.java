@@ -52,7 +52,7 @@ public class ProduitControlleur {
 			
 			if(l_prix <= 0)
 			{
-				throw new ProduitException("Le prix du produit est infÃ©rieur ou Ã©gal Ã  0");
+				throw new ProduitException("Le prix du produit est inférieur ou égal à  0");
 			}
 		}
 		else
@@ -66,17 +66,17 @@ public class ProduitControlleur {
 			l_qte = Integer.parseInt(qte);
 			if(l_qte < 0)
 			{
-				throw new ProduitException("La quantitÃ© du produit est infÃ©rieur Ã  0");
+				throw new ProduitException("La quantité du produit est inférieur à 0");
 			}
 		}
 		else
 		{
-			throw new ProduitException("La quantitÃ© du produit n'est pas un nombre");
+			throw new ProduitException("La quantité du produit n'est pas un nombre");
 		}
 
 		if(!catalogueProduit.addProduit(nom, l_prix, l_qte))
 		{
-			throw new ProduitException("Le produit existe dÃ©jÃ ");
+			throw new ProduitException("Le produit existe déjà ");
 		}
 	}
 	
@@ -89,12 +89,12 @@ public class ProduitControlleur {
 		
 		if(nomProduit == null)
 		{
-			throw new ProduitException("Pas de produit selectionnÃ©");
+			throw new ProduitException("Pas de produit selectionné");
 		}
 		
 		if(!catalogueProduit.removeProduit(nomProduit))
 		{
-			throw new ProduitException("Le produit n'a pas pu Ãªtre supprimÃ©");
+			throw new ProduitException("Le produit n'a pas pu être supprimé");
 		}
 	}
 	

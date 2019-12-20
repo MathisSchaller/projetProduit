@@ -40,7 +40,7 @@ public class FenetreSuppressionProduit extends JFrame implements ActionListener 
 		{
 			produitControlleur.supprimerProduit((String)combo.getSelectedItem());
 			combo.removeItem(combo.getSelectedItem());
-			JOptionPane.showMessageDialog(this, "Le produit a Ã©tÃ© supprimÃ©", "Information", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Le produit a été supprimé", "Information", JOptionPane.INFORMATION_MESSAGE);
 		}
 		catch(ProduitException ex)
 		{

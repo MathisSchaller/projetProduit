@@ -31,7 +31,7 @@ public class FenetreVente extends JFrame implements ActionListener {
 		combo.setPreferredSize(new Dimension(100, 20));
 		contentPane.add(new JLabel("Produit"));
 		contentPane.add(combo);
-		contentPane.add(new JLabel("QuantitÃ© vendue"));
+		contentPane.add(new JLabel("Quantité vendue"));
 		contentPane.add(txtQuantite);
 		contentPane.add(btVente);
 
@@ -43,7 +43,7 @@ public class FenetreVente extends JFrame implements ActionListener {
 		try 
 		{
 			achatVenteControlleur.vendreQuantite((String) combo.getSelectedItem(), txtQuantite.getText());
-			JOptionPane.showMessageDialog(this, "La quantitÃ© a Ã©tÃ© vendue", "Information", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "La quantité a été vendue", "Information", JOptionPane.INFORMATION_MESSAGE);
 		} 
 		catch (ProduitException ex) 
 		{

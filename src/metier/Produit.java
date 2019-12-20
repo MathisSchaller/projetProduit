@@ -126,7 +126,7 @@ public class Produit implements I_Produit {
 	 */
 	@Override
 	public String toString() {
-		String message = getNom() + " - prix HT : " + String.format("%.2f", getPrixUnitaireHT()) + " â‚¬ - prix TTC : " + String.format("%.2f", getPrixUnitaireTTC()) + " â‚¬ - quantitÃ© en stock : " + getQuantite() + "\n";
+		String message = getNom() + " - prix HT : " + String.format("%.2f", getPrixUnitaireHT()) + " € - prix TTC : " + String.format("%.2f", getPrixUnitaireTTC()) + " € - quantité en stock : " + getQuantite() + "\n";
 		return message;
 	}
 }

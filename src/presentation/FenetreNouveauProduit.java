@@ -31,7 +31,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 
 		JLabel labNom = new JLabel("Nom produit");
 		JLabel labPrixHT = new JLabel("Prix Hors Taxe");
-		JLabel labQte = new JLabel("QuantitÃ© en stock");
+		JLabel labQte = new JLabel("Quantité en stock");
 //		JLabel labCategorie = new JLabel("Categorie");
 		contentPane.add(labNom);
 		txtNom = new JTextField(15);
@@ -61,7 +61,7 @@ public class FenetreNouveauProduit extends JFrame implements ActionListener {
 		try
 		{
 			produitControlleur.ajouterProduit(txtNom.getText(), txtPrixHT.getText(), txtQte.getText());
-			JOptionPane.showMessageDialog(this, "Le produit a Ã©tÃ© crÃ©Ã©", "Information", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Le produit a été créé", "Information", JOptionPane.INFORMATION_MESSAGE);
 		}
 		catch(ProduitException ex)
 		{
