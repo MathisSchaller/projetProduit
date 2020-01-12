@@ -4,16 +4,16 @@ import java.text.ParseException;
 
 /**
  * @author Mathis Schaller
- * @author LoÃ¯c Petit
+ * @author Loïc Petit
  *
- * Classe reprÃ©sentant divers utilitaires pour l'application
+ * Classe représentant divers utilitaires pour l'application
  */
-public class Utilitaire {
-
+public class Utilitaire 
+{
 	/**
-	 * Arrondi un nombre Ã  virgule Ã  la deuxiÃ¨me dÃ©cimal
+	 * Arrondi un nombre à virgule à la deuxième décimal
 	 * 
-	 * @param nombre Le nombre Ã  arrondir
+	 * @param nombre Le nombre à arrondir
 	 * @return Le nombre arrondi
 	 */
 	public static double arrondirA2decimal(double nombre)
@@ -26,9 +26,9 @@ public class Utilitaire {
 	}
 	
 	/**
-	 * VÃ©rifie si une chaÃ®ne de caractÃ¨res peut Ãªtre parser en Integer
+	 * Vérifie si une chaîne de caractères peut être parser en Integer
 	 * 
-	 * @param number Le nombre Ã  parser
+	 * @param number Le nombre à parser
 	 * @return True ou false
 	 */
 	public static boolean isInteger(String number)
@@ -45,9 +45,9 @@ public class Utilitaire {
 	}
 	
 	/**
-	 * VÃ©rifie si une chaÃ®ne de caractÃ¨res peut Ãªtre parser en Double
+	 * Vérifie si une chaîne de caractères peut être parser en Double
 	 * 
-	 * @param number Le nombre Ã  parser
+	 * @param number Le nombre à parser
 	 * @return True ou false
 	 */
 	public static boolean isDouble(String number)

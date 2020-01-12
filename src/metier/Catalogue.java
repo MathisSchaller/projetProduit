@@ -9,12 +9,12 @@ import presentation.FenetrePrincipale;
 
 /**
  * @author Mathis Schaller
- * @author Loï¿½c Petit
+ * @author Loïc Petit
  *
- * Classe reprÃ©sentant un catalogue de produit
+ * Classe représentant un catalogue de produit
  */
-public class Catalogue implements I_Catalogue {
-
+public class Catalogue implements I_Catalogue 
+{
 	/**
 	 * Liste des produits
 	 */
@@ -23,33 +23,43 @@ public class Catalogue implements I_Catalogue {
 	/**
 	 * Constructeur de la classe CatalogueProduit
 	 */
-	public Catalogue() {
+	public Catalogue() 
+	{
 		
-		lesProduits = getProduits();
+		getProduits();
 	}
 	
 	/**
-	 * Rï¿½cupï¿½ration des produits
+	 * Récupération des produits de la BDD
 	 * 
-	 * @return Les produits stockï¿½s
+	 * @return Les produits stockés
 	 */
-	private List<I_Produit> getProduits() {
-		List<I_Produit> produits = new ArrayList<I_Produit>();
-		return produits;
+	private void getProduits() {
+		lesProduits = Produit.getAll();
 	}
+
 
 	/**
 	 * Ajouter un produit
 	 * 
-	 * @param produit Le produit ï¿½ ajouter
-	 * @return True ou false en fonction de si le produit a ï¿½tï¿½ ajoutï¿½
+	 * @param produit Le produit à ajouter
+	 * @return True ou false en fonction de si le produit a été ajouté
 	 */
 	@Override
-	public boolean addProduit(I_Produit produit) {
+	public boolean addProduit(I_Produit produit) 
+	{
 		if(produit != null)
 		{
-			if(!existe(produit.getNom()) && produit.getPrixUnitaireHT() > 0 && produit.getQuantite() >= 0) {
-				lesProduits.add(new Produit(produit.getNom(), produit.getPrixUnitaireHT(), produit.getQuantite()));
+			if(!existe(produit.getNom()) && produit.getPrixUnitaireHT() > 0 && produit.getQuantite() >= 0) 
+			{
+				// On créé un produit temporaire
+				Produit produitBDD = new Produit(produit.getNom(), produit.getPrixUnitaireHT(), produit.getQuantite());
+				
+				lesProduits.add(produitBDD);
+				
+				// On sauvegarde dans la BDD
+				produitBDD.save();
+				
 				return true;
 			}	
 		}
@@ -62,16 +72,24 @@ public class Catalogue implements I_Catalogue {
 	 * 
 	 * @param nom Nom du produit
 	 * @param prix Prix du produit
-	 * @param qte Quantitï¿½ du produit
-	 * @return True ou false en fonction de si le produit a ï¿½tï¿½ ajoutï¿½
+	 * @param qte Quantité du produit
+	 * @return True ou false en fonction de si le produit a été ajouté
 	 */
 	@Override
-	public boolean addProduit(String nom, double prix, int qte) {
-		if(!existe(nom.trim()) && prix > 0 && qte >= 0) {
-			lesProduits.add(new Produit(nom, prix, qte));
+	public boolean addProduit(String nom, double prix, int qte) 
+	{
+		if(!existe(nom.trim()) && prix > 0 && qte >= 0) 
+		{
+			// On créé un produit temporaire
+			Produit produitBDD = new Produit(nom, prix, qte);
+			
+			lesProduits.add(produitBDD);
+			
+			// On sauvegarde dans la BDD
+			produitBDD.save();
+			
 			return true;
 		}
-
 		return false;
 	}
 
@@ -79,27 +97,35 @@ public class Catalogue implements I_Catalogue {
 	 * Ajouter une liste de produits
 	 * 
 	 * @param l Liste de produits
-	 * @return Le nombre de produit ajoutï¿½s
+	 * @return Le nombre de produit ajoutés
 	 */
 	@Override
-	public int addProduits(List<I_Produit> l) {
-
+	public int addProduits(List<I_Produit> l) 
+	{
 		int produitAjoute = 0;
 		
 		if(l != null)
 		{
 			Iterator<I_Produit> it = l.iterator();
 			
-			while(it.hasNext()) {
+			while(it.hasNext()) 
+			{
 				I_Produit produitTemp = it.next();
 				
-				if(!existe(produitTemp.getNom()) && produitTemp.getPrixUnitaireHT() > 0 && produitTemp.getQuantite() >= 0) {
-					lesProduits.add(new Produit(produitTemp.getNom(), produitTemp.getPrixUnitaireHT(), produitTemp.getQuantite()));
+				if(!existe(produitTemp.getNom()) && produitTemp.getPrixUnitaireHT() > 0 && produitTemp.getQuantite() >= 0) 
+				{
+					// On créé un produit temporaire
+					Produit produitBDD = new Produit(produitTemp.getNom(), produitTemp.getPrixUnitaireHT(), produitTemp.getQuantite());
+					
+					lesProduits.add(produitBDD);
+					
+					// On sauvegarde dans la BDD
+					produitBDD.save();
+					
 					produitAjoute++;
 				}
 			}
 		}
-		
 		return produitAjoute;
 	}
 
@@ -107,18 +133,25 @@ public class Catalogue implements I_Catalogue {
 	 * Enlever un produit
 	 * 
 	 * @param nom Nom du produit
-	 * @return True ou false en fonction de si le produit a ï¿½tï¿½ enlevï¿½
+	 * @return True ou false en fonction de si le produit a été enlevés
 	 */
 	@Override
-	public boolean removeProduit(String nom) {
+	public boolean removeProduit(String nom) 
+	{
 		int indexProduit = this.trouverIndex(nom);
 		
 		if(indexProduit > -1)
 		{
+			// On récupère le produit
+			Produit produitTemp = (Produit) lesProduits.get(indexProduit);
+
 			lesProduits.remove(indexProduit);
+			
+			// On supprime le produit la BDD
+			produitTemp.delete();
+			
 			return true;
 		}
-		
 		return false;
 	}
 
@@ -126,11 +159,12 @@ public class Catalogue implements I_Catalogue {
 	 * Acheter du stock du produit
 	 * 
 	 * @param nomProduit Nom du produit
-	 * @param qteAchetee Quantitï¿½ du produit ï¿½ ajouter
-	 * @return True ou false en fonction de si la quantitï¿½ du produit a ï¿½tï¿½ modifiï¿½e
+	 * @param qteAchetee Quantité du produit à ajouter
+	 * @return True ou false en fonction de si la quantité du produit a été modifié
 	 */
 	@Override
-	public boolean acheterStock(String nomProduit, int qteAchetee) {
+	public boolean acheterStock(String nomProduit, int qteAchetee) 
+	{
 		if(qteAchetee > 0)
 		{
 			int indexProduit = this.trouverIndex(nomProduit);
@@ -139,11 +173,16 @@ public class Catalogue implements I_Catalogue {
 			{
 				if(lesProduits.get(indexProduit).ajouter(qteAchetee))
 				{
+					// On récupère le produit
+					Produit produitTemp = (Produit) lesProduits.get(indexProduit);
+					
+					// On supprime le produit la BDD
+					produitTemp.updateQuantite();
+					
 					return true;
 				}
 			}
 		}
-		
 		return false;
 	}
 
@@ -151,11 +190,12 @@ public class Catalogue implements I_Catalogue {
 	 * Vendre du stock du produit
 	 * 
 	 * @param nomProduit Nom du produit
-	 * @param qteVendue Quantitï¿½ du produit ï¿½ enlever
-	 * @return True ou false en fonction de si la quantitï¿½ du produit a ï¿½tï¿½ modifiï¿½e
+	 * @param qteVendue Quantité du produit à enlever
+	 * @return True ou false en fonction de si la quantité du produit a été modifié
 	 */
 	@Override
-	public boolean vendreStock(String nomProduit, int qteVendue) {
+	public boolean vendreStock(String nomProduit, int qteVendue) 
+	{
 		if(qteVendue > 0)
 		{
 			int indexProduit = this.trouverIndex(nomProduit);
@@ -164,6 +204,12 @@ public class Catalogue implements I_Catalogue {
 			{
 				if(lesProduits.get(indexProduit).enlever(qteVendue))
 				{
+					// On récupère le produit
+					Produit produitTemp = (Produit) lesProduits.get(indexProduit);
+					
+					// On supprime le produit la BDD
+					produitTemp.updateQuantite();
+					
 					return true;
 				}
 			}
@@ -173,19 +219,21 @@ public class Catalogue implements I_Catalogue {
 	}
 
 	/**
-	 * Rï¿½cupï¿½re les noms de tous les produits
+	 * Récupère les noms de tous les produits
 	 * 
 	 * @return Tableau contenant le nom des produits
 	 */
 	@Override
-	public String[] getNomProduits() {
-		// Crï¿½ation d'un tableau de String qui prend la taille de la liste des produits
+	public String[] getNomProduits() 
+	{
+		// Création d'un tableau de String qui prend la taille de la liste des produits
 		String[] nomProduits = new String[lesProduits.size()];
 		// On parcours la liste avec un iterateur
 		Iterator<I_Produit> it = lesProduits.iterator();
 		int i;
 		
-		for(i = 0; it.hasNext(); i++) {
+		for(i = 0; it.hasNext(); i++) 
+		{
 			I_Produit produitTemp = it.next();
 			
 			nomProduits[i] = produitTemp.getNom();
@@ -195,20 +243,22 @@ public class Catalogue implements I_Catalogue {
 	}
 	
 	/**
-	 * Vï¿½rifie si le nom du produit existe dans la liste des produits
+	 * Vérifie si le nom du produit existe dans la liste des produits
 	 * 
 	 * @param nomProduit Nom du produit
 	 * @return True ou false en fonction l'existence du produit
 	 */
-	private boolean existe(String nomProduit) {
+	private boolean existe(String nomProduit) 
+	{
 		String[] nomsProduits = this.getNomProduits();
 		
-		for(String nom : nomsProduits) {
-			if(nom.equals(nomProduit)) {
+		for(String nom : nomsProduits) 
+		{
+			if(nom.equals(nomProduit)) 
+			{
 				return true;
 			}
 		}
-		
 		return false;
 	}
 	
@@ -231,26 +281,26 @@ public class Catalogue implements I_Catalogue {
 				return i;
 			}
 		}
-		
 		return -1;
 	}
 	
 	/**
-	 * Rï¿½cupï¿½re le montant TTC total de tous les produits (en prenant en compte le stock)
+	 * Récupère le montant TTC total de tous les produits (en prenant en compte le stock)
 	 * 
 	 * @return Le montant total TTC
 	 */
 	@Override
-	public double getMontantTotalTTC() {
+	public double getMontantTotalTTC() 
+	{
 		Iterator<I_Produit> it = lesProduits.iterator();
 		double montantTotalTTC = 0.0;
 		
-		while(it.hasNext()) {
+		while(it.hasNext()) 
+		{
 			I_Produit produitTemp = it.next();
 			
 			montantTotalTTC += produitTemp.getPrixStockTTC();
 		}
-		
 		return Utilitaire.arrondirA2decimal(montantTotalTTC);
 	}
 
@@ -258,7 +308,8 @@ public class Catalogue implements I_Catalogue {
 	/**
 	 * Vide la liste des produits
 	 */
-	public void clear() {
+	public void clear() 
+	{
 		lesProduits.clear();
 	}
 	
@@ -268,17 +319,18 @@ public class Catalogue implements I_Catalogue {
 	 * 
 	 * @return Les informations sur les produits dans le catalogue
 	 */
-	public String toString() {
+	public String toString() 
+	{
 		String message = "";
 		
 		Iterator<I_Produit> it = lesProduits.iterator();
 		
-		while(it.hasNext()) {
+		while(it.hasNext()) 
+		{
 			I_Produit produitTemp = it.next();
 			
 			message += produitTemp;
 		}
-
 		message += "\n" + "Montant total TTC du stock : " + String.format("%.2f", getMontantTotalTTC()) + " €";
 		return message;
 	}

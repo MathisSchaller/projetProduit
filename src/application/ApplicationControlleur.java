@@ -4,12 +4,12 @@ import metier.Catalogue;
 
 /**
  * @author Mathis Schaller
- * @author Loï¿½c Petit
+ * @author Loïc Petit
  *
  * Classe qui représente le controlleur central de l'application
  */
-public class ApplicationControlleur {
-
+public class ApplicationControlleur 
+{
 	private Catalogue catalogueProduit;
 	private ProduitControlleur produitControlleur;
 	private AchatVenteControlleur achatVenteControlleur;
@@ -31,7 +31,8 @@ public class ApplicationControlleur {
 	 * 
 	 * @return Le catalogue de produits
 	 */
-	public Catalogue getCatalogueProduit() {
+	public Catalogue getCatalogueProduit() 
+	{
 		return this.catalogueProduit;
 	}
 
@@ -40,7 +41,8 @@ public class ApplicationControlleur {
 	 * 
 	 * @return Le controlleur produitControlleur
 	 */
-	public ProduitControlleur getProduitControlleur() {
+	public ProduitControlleur getProduitControlleur() 
+	{
 		return this.produitControlleur;
 	}
 	
@@ -49,7 +51,8 @@ public class ApplicationControlleur {
 	 * 
 	 * @return Le controlleur achatVenteControlleur
 	 */
-	public AchatVenteControlleur getAchatVenteControlleur() {
+	public AchatVenteControlleur getAchatVenteControlleur() 
+	{
 		return this.achatVenteControlleur;
 	}
 	
@@ -58,7 +61,8 @@ public class ApplicationControlleur {
 	 * 
 	 * @return Le controlleur stockControlleur
 	 */
-	public StockControlleur getStockControlleur() {
+	public StockControlleur getStockControlleur() 
+	{
 		return this.stockControlleur;
 	}
 }

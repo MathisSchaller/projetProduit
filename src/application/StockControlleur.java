@@ -4,12 +4,12 @@ import metier.Catalogue;
 
 /**
  * @author Mathis Schaller
- * @author Loï¿½c Petit
+ * @author Loïc Petit
  *
- * Classe reprÃ©sentant le controlleur pour l'affichage des informations des produits
+ * Classe représentant le controlleur pour l'affichage des informations des produits
  */
-public class StockControlleur {
-
+public class StockControlleur 
+{
 	/**
 	 * Catalogue de produits
 	 */
@@ -20,12 +20,13 @@ public class StockControlleur {
 	 * 
 	 * @param catalogueProduit Le catalogue de produits
 	 */
-	public StockControlleur(Catalogue catalogueProduit) {
+	public StockControlleur(Catalogue catalogueProduit) 
+	{
 		this.catalogueProduit = catalogueProduit;
 	}
 	
 	/**
-	 * Permet de rÃ©cupÃ©rer les informations sur le stock de produits
+	 * Permet de récupèrer les informations sur le stock de produits
 	 * 
 	 * @return Les informations sur le stock de produits
 	 */

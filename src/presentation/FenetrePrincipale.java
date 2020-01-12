@@ -8,6 +8,7 @@ import application.AchatVenteControlleur;
 import application.ApplicationControlleur;
 import application.ProduitControlleur;
 import application.StockControlleur;
+import dal.OracleConnexion;
 import metier.Catalogue;
 
 
@@ -107,6 +108,10 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 
 	public void windowClosing(WindowEvent arg0) {
 		System.out.println("Au revoir");
+		
+		// Fermeture de la connexion à la BDD
+		OracleConnexion.Deconnexion();
+		
 		System.exit(0);
 	}
 

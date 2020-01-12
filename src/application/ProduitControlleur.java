@@ -8,12 +8,12 @@ import presentation.FenetreSuppressionProduit;
 
 /**
  * @author Mathis Schaller
- * @author Loï¿½c Petit
+ * @author Loïc Petit
  *
- * Classe reprÃ©sentant le controlleur pour l'ajout et la suppression de produits
+ * Classe représentant le controlleur pour l'ajout et la suppression de produits
  */
-public class ProduitControlleur {
-	
+public class ProduitControlleur 
+{
 	/**
 	 * Catalogue de produits
 	 */
@@ -24,7 +24,8 @@ public class ProduitControlleur {
 	 * 
 	 * @param catalogueProduit Le catalogue de produits
 	 */
-	public ProduitControlleur(Catalogue catalogueProduit) {
+	public ProduitControlleur(Catalogue catalogueProduit) 
+	{
 		this.catalogueProduit = catalogueProduit;
 	}
 	
@@ -33,10 +34,10 @@ public class ProduitControlleur {
 	 * 
 	 * @param nom Nom du produit a ajouter
 	 * @param prix Prix du produit a ajouter
-	 * @param qte QuantitÃ© du produit a ajouter
+	 * @param qte Quantité du produit a ajouter
 	 */
-	public void ajouterProduit(String nom, String prix, String qte) throws ProduitException {
-		
+	public void ajouterProduit(String nom, String prix, String qte) throws ProduitException 
+	{
 		double l_prix = 0.0;
 		int l_qte = 0;
 		
@@ -60,7 +61,7 @@ public class ProduitControlleur {
 			throw new ProduitException("Le prix du produit n'est pas un nombre");
 		}
 		
-		// Vï¿½rification de la quantitï¿½
+		// Vérification de la quantité
 		if(Utilitaire.isInteger(qte))
 		{
 			l_qte = Integer.parseInt(qte);
@@ -76,17 +77,17 @@ public class ProduitControlleur {
 
 		if(!catalogueProduit.addProduit(nom, l_prix, l_qte))
 		{
-			throw new ProduitException("Le produit existe déjà ");
+			throw new ProduitException("Le produit existe déjà");
 		}
 	}
 	
 	/**
 	 * Supprime un produit du catalogue
 	 * 
-	 * @param produit Le nom du produit a supprimer
+	 * @param produit Le nom du produit à supprimer
 	 */
-	public void supprimerProduit(String nomProduit) throws ProduitException {
-		
+	public void supprimerProduit(String nomProduit) throws ProduitException 
+	{
 		if(nomProduit == null)
 		{
 			throw new ProduitException("Pas de produit selectionné");
@@ -99,7 +100,7 @@ public class ProduitControlleur {
 	}
 	
 	/**
-	 * RÃ©cupÃ¨re le nom de tous les produits dans le catalogue
+	 * Récupère le nom de tous les produits dans le catalogue
 	 * 
 	 * @return un tableau de nom des produits
 	 */

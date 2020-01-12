@@ -6,12 +6,12 @@ import metier.Utilitaire;
 
 /**
  * @author Mathis Schaller
- * @author Loï¿½c Petit
+ * @author Loïc Petit
  *
- * Classe reprÃ©sentant le controlleur pour l'achat et la vente de produits
+ * Classe représentant le controlleur pour l'achat et la vente de produits
  */
-public class AchatVenteControlleur {
-	
+public class AchatVenteControlleur 
+{	
 	/**
 	 * Catalogue de produits
 	 */
@@ -22,12 +22,13 @@ public class AchatVenteControlleur {
 	 * 
 	 * @param catalogueProduit Le catalogue de produits
 	 */
-	public AchatVenteControlleur(Catalogue catalogueProduit) {
+	public AchatVenteControlleur(Catalogue catalogueProduit) 
+	{
 		this.catalogueProduit = catalogueProduit;
 	}
 	
 	/**
-	 * RÃ©cupÃ¨re le nom de tous les produits dans le catalogue
+	 * Récupère le nom de tous les produits dans le catalogue
 	 * 
 	 * @return Un tableau de nom des produits
 	 */
@@ -40,10 +41,10 @@ public class AchatVenteControlleur {
 	 * Ajoute un produit au catalogue
 	 * 
 	 * @param nom Nom du produit a ajouter
-	 * @param qte QuantitÃ© du produit a ajouter
+	 * @param qte Quantité du produit a ajouter
 	 */
-	public void vendreQuantite(String nom, String qte) throws ProduitException {
-
+	public void vendreQuantite(String nom, String qte) throws ProduitException 
+	{
 		int l_qte = 0;
 		
 		if(nom == null)
@@ -51,8 +52,7 @@ public class AchatVenteControlleur {
 			throw new ProduitException("Aucun produit selectionné");
 		}
 		
-		
-		// VÃ©rification de la quantitÃ©
+		// Vérification de la quantité
 		if(Utilitaire.isInteger(qte))
 		{
 			l_qte = Integer.parseInt(qte);
@@ -76,10 +76,10 @@ public class AchatVenteControlleur {
 	 * Supprime un produit du catalogue
 	 * 
 	 * @param nom Nom du produit a supprimer
-	 * @param qte QuantitÃ© Ã  acheter
+	 * @param qte Quantité à acheter
 	 */
-	public void acheterQuantite(String nom, String qte) throws ProduitException {
-		
+	public void acheterQuantite(String nom, String qte) throws ProduitException 
+	{	
 		int l_qte = 0;
 		
 		if(nom == null)
@@ -87,8 +87,7 @@ public class AchatVenteControlleur {
 			throw new ProduitException("Aucun produit selectionné");
 		}
 		
-		
-		// VÃ©rification de la quantitÃ©
+		// Vérification de la quantité
 		if(Utilitaire.isInteger(qte))
 		{
 			l_qte = Integer.parseInt(qte);
