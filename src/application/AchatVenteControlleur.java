@@ -5,10 +5,10 @@ import metier.Catalogue;
 import metier.Utilitaire;
 
 /**
+ * Classe représentant le controlleur pour l'achat et la vente de produits
+ * 
  * @author Mathis Schaller
  * @author Loïc Petit
- *
- * Classe représentant le controlleur pour l'achat et la vente de produits
  */
 public class AchatVenteControlleur 
 {	

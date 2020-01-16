@@ -8,10 +8,10 @@ import java.util.Iterator;
 import presentation.FenetrePrincipale;
 
 /**
+ * Classe représentant un catalogue de produit
+ * 
  * @author Mathis Schaller
  * @author Loïc Petit
- *
- * Classe représentant un catalogue de produit
  */
 public class Catalogue implements I_Catalogue 
 {
@@ -176,7 +176,7 @@ public class Catalogue implements I_Catalogue
 					// On récupère le produit
 					Produit produitTemp = (Produit) lesProduits.get(indexProduit);
 					
-					// On supprime le produit la BDD
+					// On modifie la quantité dans la BDD
 					produitTemp.updateQuantite();
 					
 					return true;
@@ -207,7 +207,7 @@ public class Catalogue implements I_Catalogue
 					// On récupère le produit
 					Produit produitTemp = (Produit) lesProduits.get(indexProduit);
 					
-					// On supprime le produit la BDD
+					// On modifie la quantité dans la BDD
 					produitTemp.updateQuantite();
 					
 					return true;

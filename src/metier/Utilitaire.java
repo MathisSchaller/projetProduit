@@ -3,10 +3,10 @@ package metier;
 import java.text.ParseException;
 
 /**
+ * Classe représentant divers utilitaires pour l'application
+ * 
  * @author Mathis Schaller
  * @author Loïc Petit
- *
- * Classe représentant divers utilitaires pour l'application
  */
 public class Utilitaire 
 {

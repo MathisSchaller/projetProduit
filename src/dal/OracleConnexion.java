@@ -2,16 +2,13 @@ package dal;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 /**
+ * Classe représentant la connexion à une base de donnée Oracle
+ * 
  * @author Mathis Schaller
  * @author Loïc Petit
- * 
- * Classe représentant la connexion à une base de donnée Oracle
  */
 public class OracleConnexion {
 	/**
@@ -31,9 +28,10 @@ public class OracleConnexion {
 			{
 				Class.forName("oracle.jdbc.driver.OracleDriver");
 
-				String url = "jdbc:oracle:thin:@162.38.222.149:1521:iut";
-				String login = "";
-				String mdp = "";
+				//String url = "jdbc:oracle:thin:@162.38.222.149:1521:iut";
+				String url = "jdbc:oracle:thin:@gloin:1521:iut";
+				String login = "petitl";
+				String mdp = "1109006350K";
 				
 				// Connexion à  la base de données
 				cn = DriverManager.getConnection(url, login, mdp);

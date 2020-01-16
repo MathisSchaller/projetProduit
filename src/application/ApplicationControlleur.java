@@ -3,10 +3,10 @@ package application;
 import metier.Catalogue;
 
 /**
+ * Classe qui représente le controlleur central de l'application
+ * 
  * @author Mathis Schaller
  * @author Loïc Petit
- *
- * Classe qui représente le controlleur central de l'application
  */
 public class ApplicationControlleur 
 {

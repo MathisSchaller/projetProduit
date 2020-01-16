@@ -13,12 +13,12 @@ import metier.I_Produit;
 import metier.Produit;
 
 /**
- * @author Mathis Schaller
- * @author Loïc Petit
- * 
  * Classe CRUD de la classe Produit
+ * 
+ * @author Mathis Schaller
+ * @author Loïc Petit 
  */
-public class ProduitDAO 
+public class ProduitDAORelationnelle implements I_ProduitDAO
 {
 	/**
 	 * Variable de connexion à la BDD
@@ -30,7 +30,7 @@ public class ProduitDAO
 	 * 
 	 * @param cn La connexion à la BDD
 	 */
-	public ProduitDAO(Connection cn)
+	public ProduitDAORelationnelle(Connection cn)
 	{
 		this.cn = cn;
 	}
@@ -134,3 +134,4 @@ public class ProduitDAO
 		return produits;
 	}
 }
+

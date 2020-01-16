@@ -3,13 +3,15 @@ package metier;
 import java.util.List;
 
 import dal.OracleConnexion;
-import dal.ProduitDAO;
+import dal.ProduitDAOFactory;
+import dal.ProduitDAORelationnelle;
+import dal.I_ProduitDAO;
 
 /**
+ * Classe représentant un produit
+ * 
  * @author Mathis Schaller
  * @author Loïc Petit
- * 
- * Classe représentant un produit
  */
 public class Produit implements I_Produit 
 {
@@ -34,9 +36,9 @@ public class Produit implements I_Produit
 	private static double tauxTVA = 0.2;
 	
 	/**
-	 * Le DAO de la classe Produit
+	 * Le DAO de la classe Produit créé par la fabrique ProduitDAOFactory
 	 */
-	private static ProduitDAO dao = new ProduitDAO(OracleConnexion.getInstance());
+	private static I_ProduitDAO dao = ProduitDAOFactory.getInstance().createProduitDAORelationnelle();
 	
 	/**
 	 * Constructeur de la classe Produit

@@ -3,10 +3,10 @@ package application;
 import metier.Catalogue;
 
 /**
+ * Classe représentant le controlleur pour l'affichage des informations des produits
+ * 
  * @author Mathis Schaller
  * @author Loïc Petit
- *
- * Classe représentant le controlleur pour l'affichage des informations des produits
  */
 public class StockControlleur 
 {

@@ -7,10 +7,10 @@ import presentation.FenetreNouveauProduit;
 import presentation.FenetreSuppressionProduit;
 
 /**
+ * Classe représentant le controlleur pour l'ajout et la suppression de produits
+ * 
  * @author Mathis Schaller
  * @author Loïc Petit
- *
- * Classe représentant le controlleur pour l'ajout et la suppression de produits
  */
 public class ProduitControlleur 
 {
