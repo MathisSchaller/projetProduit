@@ -32,8 +32,8 @@ public class OracleConnexion
 
 				String url = "jdbc:oracle:thin:@162.38.222.149:1521:iut";
 				//String url = "jdbc:oracle:thin:@gloin:1521:iut";
-				String login = "petitl"; // A MODIFIER
-				String mdp = "1109006350K"; // A MODIFIER
+				String login = ""; // A MODIFIER
+				String mdp = ""; // A MODIFIER
 				
 				// Connexion à  la base de données
 				cn = DriverManager.getConnection(url, login, mdp);
