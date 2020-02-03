@@ -1,7 +1,5 @@
 package metier;
 
-import java.text.ParseException;
-
 /**
  * Classe représentant divers utilitaires pour l'application
  * 

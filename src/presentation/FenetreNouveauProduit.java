@@ -6,8 +6,6 @@ import javax.swing.*;
 
 import application.ProduitControlleur;
 import exceptions.ProduitException;
-import metier.Catalogue;
-import metier.Utilitaire;
 
 public class FenetreNouveauProduit extends JFrame implements ActionListener {
 

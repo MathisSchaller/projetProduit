@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import application.ProduitControlleur;
 import application.StockControlleur;
 
 public class FenetreAffichage extends JFrame implements ActionListener {

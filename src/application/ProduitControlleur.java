@@ -3,8 +3,6 @@ package application;
 import exceptions.ProduitException;
 import metier.Catalogue;
 import metier.Utilitaire;
-import presentation.FenetreNouveauProduit;
-import presentation.FenetreSuppressionProduit;
 
 /**
  * Classe représentant le controlleur pour l'ajout et la suppression de produits

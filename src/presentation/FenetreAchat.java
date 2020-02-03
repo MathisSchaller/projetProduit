@@ -5,7 +5,6 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import application.AchatVenteControlleur;
-import application.ProduitControlleur;
 import exceptions.ProduitException;
 
 public class FenetreAchat extends JFrame implements ActionListener {

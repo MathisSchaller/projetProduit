@@ -21,10 +21,15 @@ public class ProduitDAOFactory
 	/**
 	 * Créer une instance d'une classe héritant de l'interface I_ProduitDAO
 	 * 
+	 * @param type Le type de stockage de données (xml pour utiliser le XML, ne rien mettre pour utiliser le relationnelle)
 	 * @return Une instance d'une classe héritant de l'interface I_ProduitDAO
 	 */
-	public I_ProduitDAO createProduitDAO()
+	public I_ProduitDAO createProduitDAO(String type)
 	{
+		if(type.equals("xml"))
+		{
+			return new AdaptateurProduitDAO_XML();
+		}
 		return new ProduitDAO_Relationnelle(OracleConnexion.getInstance());
 	}
 	

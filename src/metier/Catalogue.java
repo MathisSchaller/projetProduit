@@ -1,11 +1,8 @@
 package metier;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Iterator;
-
-import presentation.FenetrePrincipale;
 
 /**
  * Classe représentant un catalogue de produit

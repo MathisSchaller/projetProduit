@@ -4,12 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-import application.AchatVenteControlleur;
 import application.ApplicationControlleur;
-import application.ProduitControlleur;
-import application.StockControlleur;
 import dal.OracleConnexion;
-import metier.Catalogue;
 
 
 
