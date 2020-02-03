@@ -36,7 +36,7 @@ public class Produit implements I_Produit
 	/**
 	 * Le DAO de la classe Produit créé par la fabrique ProduitDAOFactory
 	 */
-	private static I_ProduitDAO dao = ProduitDAOFactory.getInstance().createProduitDAO("xml");
+	private static I_ProduitDAO dao = ProduitDAOFactory.getInstance().createProduitDAO("");
 	
 	/**
 	 * Constructeur de la classe Produit
