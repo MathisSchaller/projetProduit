@@ -25,16 +25,16 @@ public class Catalogue implements I_Catalogue
 	 */
 	public Catalogue() 
 	{
-		
 		getProduits();
 	}
 	
 	/**
 	 * Récupération des produits de la BDD
 	 * 
-	 * @return Les produits stockés
+	 * @return Les produits stockés dans la BDD
 	 */
-	private void getProduits() {
+	private void getProduits() 
+	{
 		lesProduits = Produit.getAll();
 	}
 

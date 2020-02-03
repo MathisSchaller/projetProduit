@@ -18,7 +18,7 @@ import metier.Produit;
  * @author Mathis Schaller
  * @author Loïc Petit 
  */
-public class ProduitDAORelationnelle implements I_ProduitDAO
+public class ProduitDAO_Relationnelle implements I_ProduitDAO
 {
 	/**
 	 * Variable de connexion à la BDD
@@ -26,11 +26,11 @@ public class ProduitDAORelationnelle implements I_ProduitDAO
 	private Connection cn;
 	
 	/**
-	 * Constructeur de la classe ProduitDAO
+	 * Constructeur de la classe ProduitDAO_Relationnelle
 	 * 
 	 * @param cn La connexion à la BDD
 	 */
-	public ProduitDAORelationnelle(Connection cn)
+	public ProduitDAO_Relationnelle(Connection cn)
 	{
 		this.cn = cn;
 	}
@@ -130,7 +130,6 @@ public class ProduitDAORelationnelle implements I_ProduitDAO
 		{
 			System.out.println("Erreur lors de la récupération des produits : " + e.getMessage());
 		}
-		
 		return produits;
 	}
 }

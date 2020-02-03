@@ -5,9 +5,10 @@ package exceptions;
  * 
  * @author schallerm
  */
-public class ProduitException extends Exception {
-
-	public ProduitException(String message) {
+public class ProduitException extends Exception 
+{
+	public ProduitException(String message) 
+	{
 		super(message);
 	}
 }

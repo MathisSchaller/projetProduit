@@ -10,7 +10,8 @@ import java.sql.SQLException;
  * @author Mathis Schaller
  * @author Loïc Petit
  */
-public class OracleConnexion {
+public class OracleConnexion 
+{
 	/**
 	 * Variable de connexion à la BDD
 	 */
@@ -21,21 +22,22 @@ public class OracleConnexion {
 	 * 
 	 * @return La variable de connexion à la BDD
 	 */
-	public static Connection getInstance() {
-		
-		if(cn == null) {
+	public static Connection getInstance() 
+	{
+		if(cn == null) 
+		{
 			try
 			{
 				Class.forName("oracle.jdbc.driver.OracleDriver");
 
-				//String url = "jdbc:oracle:thin:@162.38.222.149:1521:iut";
-				String url = "jdbc:oracle:thin:@gloin:1521:iut";
+				String url = "jdbc:oracle:thin:@162.38.222.149:1521:iut";
+				//String url = "jdbc:oracle:thin:@gloin:1521:iut";
 				String login = "";
 				String mdp = "";
 				
 				// Connexion à  la base de données
 				cn = DriverManager.getConnection(url, login, mdp);
-				System.out.println("Création");
+				System.out.println("Connexion à la BDD");
 			}
 			catch(ClassNotFoundException e)
 			{
@@ -53,13 +55,14 @@ public class OracleConnexion {
 	/**
 	 * Fermer la connexion à la BDD
 	 */
-	public static void Deconnexion() {
+	public static void Deconnexion() 
+	{
 		if(cn != null)
 		{
 			try
 			{
 				cn.close();
-				System.out.println("Déconnexion");
+				System.out.println("Déconnexion de la BDD");
 			}
 			catch(SQLException e)
 			{

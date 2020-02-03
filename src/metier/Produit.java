@@ -4,7 +4,7 @@ import java.util.List;
 
 import dal.OracleConnexion;
 import dal.ProduitDAOFactory;
-import dal.ProduitDAORelationnelle;
+import dal.ProduitDAO_Relationnelle;
 import dal.I_ProduitDAO;
 
 /**
@@ -38,7 +38,7 @@ public class Produit implements I_Produit
 	/**
 	 * Le DAO de la classe Produit créé par la fabrique ProduitDAOFactory
 	 */
-	private static I_ProduitDAO dao = ProduitDAOFactory.getInstance().createProduitDAORelationnelle();
+	private static I_ProduitDAO dao = ProduitDAOFactory.getInstance().createProduitDAO();
 	
 	/**
 	 * Constructeur de la classe Produit

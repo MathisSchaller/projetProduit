@@ -38,10 +38,10 @@ public class AchatVenteControlleur
 	}
 	
 	/**
-	 * Ajoute un produit au catalogue
+	 * Vend la quantité d'un produit
 	 * 
-	 * @param nom Nom du produit a ajouter
-	 * @param qte Quantité du produit a ajouter
+	 * @param nom Nom du produit à vendre
+	 * @param qte Quantité à vendre
 	 */
 	public void vendreQuantite(String nom, String qte) throws ProduitException 
 	{
@@ -73,9 +73,9 @@ public class AchatVenteControlleur
 	}
 	
 	/**
-	 * Supprime un produit du catalogue
+	 * Acheter la quantité d'un produit
 	 * 
-	 * @param nom Nom du produit a supprimer
+	 * @param nom Nom du produit a acheter
 	 * @param qte Quantité à acheter
 	 */
 	public void acheterQuantite(String nom, String qte) throws ProduitException 

@@ -6,8 +6,8 @@ package dal;
  * @author Mathis Schaller
  * @author Loïc Petit
  */
-public class ProduitDAOFactory {
-
+public class ProduitDAOFactory 
+{
 	/**
 	 * Instance de ProduitDAOFactory
 	 */
@@ -19,13 +19,13 @@ public class ProduitDAOFactory {
 	protected ProduitDAOFactory() {}
 	
 	/**
-	 * Créer une instance de la classe ProduitDAORelationnelle
+	 * Créer une instance d'une classe héritant de l'interface I_ProduitDAO
 	 * 
-	 * @return Une instance de la classe ProduitDAORelationnelle
+	 * @return Une instance d'une classe héritant de l'interface I_ProduitDAO
 	 */
-	public ProduitDAORelationnelle createProduitDAORelationnelle()
+	public I_ProduitDAO createProduitDAO()
 	{
-		return new ProduitDAORelationnelle(OracleConnexion.getInstance());
+		return new ProduitDAO_Relationnelle(OracleConnexion.getInstance());
 	}
 	
 	/**
