@@ -51,9 +51,12 @@ public class ProduitDAO_Relationnelle implements I_ProduitDAO
 			cst.setInt(3, quantite);
 			
 			// executeUpdate retourne le nombre de tuples ajoutées
-			cst.executeUpdate();
+			if(cst.executeUpdate() > 0)
+			{
+				return true;
+			}
 			
-			return true;
+			return false;
 		}
 		catch(SQLException e)
 		{
@@ -75,9 +78,12 @@ public class ProduitDAO_Relationnelle implements I_ProduitDAO
 			PreparedStatement pst = cn.prepareStatement("DELETE FROM Produits WHERE nom = ?");
 			pst.setString(1, nom);
 			
-			pst.executeUpdate();
+			if(pst.executeUpdate() > 0)
+			{
+				return true;
+			}
 
-			return true;
+			return false;
 		}
 		catch(SQLException e)
 		{
@@ -101,9 +107,12 @@ public class ProduitDAO_Relationnelle implements I_ProduitDAO
 			pst.setInt(1, quantite);
 			pst.setString(2, nom);
 			
-			pst.executeUpdate();
+			if(pst.executeUpdate() > 0)
+			{
+				return true;
+			}
 			
-			return true;
+			return false;
 		}
 		catch(SQLException e)
 		{

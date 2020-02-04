@@ -68,7 +68,7 @@ public class AchatVenteControlleur
 
 		if(!catalogueProduit.vendreStock(nom, l_qte))
 		{
-			throw new ProduitException("Pas assez de stock pour vendre cette quantité");
+			throw new ProduitException("Impossible de vendre cette quantité");
 		}
 	}
 	
@@ -104,7 +104,7 @@ public class AchatVenteControlleur
 
 		if(!catalogueProduit.acheterStock(nom, l_qte))
 		{
-			throw new ProduitException("Pas assez de stock pour acheter cette quantité");
+			throw new ProduitException("Impossible d'acheter cette quantité");
 		}
 	}
 }

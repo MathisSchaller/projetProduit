@@ -144,6 +144,7 @@ public class Catalogue implements I_Catalogue
 			
 			if(produitTemp.delete() && lesProduits.remove(indexProduit) != null)
 			{
+				System.out.println("oui");
 				return true;
 			}
 		}
@@ -169,9 +170,17 @@ public class Catalogue implements I_Catalogue
 				// On récupère le produit
 				Produit produitTemp = (Produit) lesProduits.get(indexProduit);
 				
-				if(produitTemp.ajouter(qteAchetee) && produitTemp.updateQuantite())
+				if(produitTemp.ajouter(qteAchetee))
 				{	
-					return true;
+					if(produitTemp.updateQuantite())
+					{
+						return true;
+					}
+					else
+					{
+						// Si on ne peut pas mettre à jour la quantité dans la BDD, on enlève la quantité ajouté dans la liste
+						produitTemp.enlever(qteAchetee);
+					}
 				}
 			}
 		}
@@ -197,9 +206,17 @@ public class Catalogue implements I_Catalogue
 				// On récupère le produit
 				Produit produitTemp = (Produit) lesProduits.get(indexProduit);
 				
-				if(produitTemp.enlever(qteVendue)  && produitTemp.updateQuantite())
+				if(produitTemp.enlever(qteVendue))
 				{					
-					return true;
+					if(produitTemp.updateQuantite())
+					{
+						return true;
+					}
+					else
+					{
+						// Si on ne peut pas mettre à jour la quantité dans la BDD, on remet la quantité enlevé dans la liste
+						produitTemp.ajouter(qteVendue);
+					}
 				}
 			}
 		}
