@@ -1,7 +1,13 @@
 package metier;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.List;
+
+import dal.OracleConnexion;
+
 import java.util.Iterator;
 
 /**
@@ -308,6 +314,20 @@ public class Catalogue implements I_Catalogue
 	public void clear() 
 	{
 		lesProduits.clear();
+		
+		// Ces instructions permettent de supprimer les données de la table Produits
+		Connection cn = OracleConnexion.getInstance();
+		
+		try
+		{
+			PreparedStatement pst = cn.prepareStatement("DELETE FROM Produits");
+			
+			pst.execute();
+		}
+		catch(SQLException e)
+		{
+			System.out.println("Erreur suppression : " + e.getMessage());
+		}
 	}
 	
 	@Override
