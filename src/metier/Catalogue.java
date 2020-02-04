@@ -1,8 +1,8 @@
 package metier;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class Catalogue implements I_Catalogue
 	 * 
 	 * @return Les produits stockés dans la BDD
 	 */
-	private void getProduits() 
+	public void getProduits() 
 	{
 		lesProduits = Produit.getAll();
 	}
@@ -58,12 +58,10 @@ public class Catalogue implements I_Catalogue
 				// On créé un produit temporaire
 				Produit produitBDD = new Produit(produit.getNom(), produit.getPrixUnitaireHT(), produit.getQuantite());
 				
-				lesProduits.add(produitBDD);
-				
-				// On sauvegarde dans la BDD
-				produitBDD.save();
-				
-				return true;
+				if(produitBDD.save() && lesProduits.add(produitBDD))
+				{
+					return true;
+				}
 			}	
 		}
 
@@ -86,12 +84,10 @@ public class Catalogue implements I_Catalogue
 			// On créé un produit temporaire
 			Produit produitBDD = new Produit(nom, prix, qte);
 			
-			lesProduits.add(produitBDD);
-			
-			// On sauvegarde dans la BDD
-			produitBDD.save();
-			
-			return true;
+			if(produitBDD.save() && lesProduits.add(produitBDD))
+			{
+				return true;
+			}
 		}
 		return false;
 	}
@@ -120,12 +116,10 @@ public class Catalogue implements I_Catalogue
 					// On créé un produit temporaire
 					Produit produitBDD = new Produit(produitTemp.getNom(), produitTemp.getPrixUnitaireHT(), produitTemp.getQuantite());
 					
-					lesProduits.add(produitBDD);
-					
-					// On sauvegarde dans la BDD
-					produitBDD.save();
-					
-					produitAjoute++;
+					if(produitBDD.save() && lesProduits.add(produitBDD))
+					{
+						produitAjoute++;
+					}
 				}
 			}
 		}
@@ -139,21 +133,19 @@ public class Catalogue implements I_Catalogue
 	 * @return True ou false en fonction de si le produit a été enlevés
 	 */
 	@Override
-	public boolean removeProduit(String nom) 
+	public boolean removeProduit(String nom)
 	{
 		int indexProduit = this.trouverIndex(nom);
 		
 		if(indexProduit > -1)
 		{
 			// On récupère le produit
-			Produit produitTemp = (Produit) lesProduits.get(indexProduit);
-
-			lesProduits.remove(indexProduit);
+			Produit produitTemp = (Produit) lesProduits.get(indexProduit);			
 			
-			// On supprime le produit la BDD
-			produitTemp.delete();
-			
-			return true;
+			if(produitTemp.delete() && lesProduits.remove(indexProduit) != null)
+			{
+				return true;
+			}
 		}
 		return false;
 	}
@@ -174,14 +166,11 @@ public class Catalogue implements I_Catalogue
 			
 			if(indexProduit > -1)
 			{
-				if(lesProduits.get(indexProduit).ajouter(qteAchetee))
-				{
-					// On récupère le produit
-					Produit produitTemp = (Produit) lesProduits.get(indexProduit);
-					
-					// On modifie la quantité dans la BDD
-					produitTemp.updateQuantite();
-					
+				// On récupère le produit
+				Produit produitTemp = (Produit) lesProduits.get(indexProduit);
+				
+				if(produitTemp.ajouter(qteAchetee) && produitTemp.updateQuantite())
+				{	
 					return true;
 				}
 			}
@@ -205,14 +194,11 @@ public class Catalogue implements I_Catalogue
 			
 			if(indexProduit > -1)
 			{
-				if(lesProduits.get(indexProduit).enlever(qteVendue))
-				{
-					// On récupère le produit
-					Produit produitTemp = (Produit) lesProduits.get(indexProduit);
-					
-					// On modifie la quantité dans la BDD
-					produitTemp.updateQuantite();
-					
+				// On récupère le produit
+				Produit produitTemp = (Produit) lesProduits.get(indexProduit);
+				
+				if(produitTemp.enlever(qteVendue)  && produitTemp.updateQuantite())
+				{					
 					return true;
 				}
 			}
@@ -228,7 +214,7 @@ public class Catalogue implements I_Catalogue
 	 */
 	@Override
 	public String[] getNomProduits() 
-	{
+	{		
 		// Création d'un tableau de String qui prend la taille de la liste des produits
 		String[] nomProduits = new String[lesProduits.size()];
 		// On parcours la liste avec un iterateur
@@ -320,9 +306,8 @@ public class Catalogue implements I_Catalogue
 		
 		try
 		{
-			PreparedStatement pst = cn.prepareStatement("DELETE FROM Produits");
-			
-			pst.execute();
+			Statement st = cn.createStatement();
+			st.executeUpdate("DELETE FROM Produits");
 		}
 		catch(SQLException e)
 		{
