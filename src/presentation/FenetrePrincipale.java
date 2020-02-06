@@ -106,7 +106,7 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 		System.out.println("Au revoir");
 		
 		// Fermeture de la connexion à la BDD
-		OracleConnexion.Deconnexion();
+		OracleConnexion.deconnexion();
 		
 		System.exit(0);
 	}

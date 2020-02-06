@@ -18,11 +18,16 @@ public class OracleConnexion
 	private static Connection cn;
 
 	/**
+	 * Constructeur
+	 */
+	protected OracleConnexion() {}
+	
+	/**
 	 * Renvoyer la connexion à la BDD
 	 * 
 	 * @return La variable de connexion à la BDD
 	 */
-	public static Connection getInstance() 
+	public synchronized static Connection getInstance() 
 	{
 		if(cn == null) 
 		{
@@ -55,7 +60,7 @@ public class OracleConnexion
 	/**
 	 * Fermer la connexion à la BDD
 	 */
-	public static void Deconnexion() 
+	public static void deconnexion() 
 	{
 		if(cn != null)
 		{
