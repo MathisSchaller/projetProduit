@@ -2,15 +2,13 @@ package dal;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
-
 import org.jdom.*;
 import org.jdom.input.*;
 import org.jdom.output.*;
-
 import metier.I_Produit;
 import metier.Produit;
-
 
 public class ProduitDAO_XML {
 	private String uri = "D:/Produits.xml";
@@ -25,7 +23,7 @@ public class ProduitDAO_XML {
 		}
 	}
 
-	public boolean creer(I_Produit p) {
+	public boolean creer(I_Produit p, String nomCatalogue) {
 		try {
 			Element root = doc.getRootElement();
 			Element prod = new Element("produit");
@@ -34,6 +32,8 @@ public class ProduitDAO_XML {
 			prod.addContent(prix.setText(String.valueOf(p.getPrixUnitaireHT())));
 			Element qte = new Element("quantite");
 			prod.addContent(qte.setText(String.valueOf(p.getQuantite())));
+			Element catalogue = new Element("catalogue");
+			prod.addContent(catalogue.setText(String.valueOf(nomCatalogue)));
 			root.addContent(prod);
 			return sauvegarde();
 		} catch (Exception e) {
@@ -42,9 +42,9 @@ public class ProduitDAO_XML {
 		}
 	}
 
-	public boolean maj(I_Produit p) {
+	public boolean maj(I_Produit p, String nomCatalogue) {
 		try {
-			Element prod = chercheProduit(p.getNom());
+			Element prod = chercheProduit(p.getNom(), nomCatalogue);
 			if (prod != null) {
 				prod.getChild("quantite").setText(String.valueOf(p.getQuantite()));
 				return sauvegarde();
@@ -56,10 +56,10 @@ public class ProduitDAO_XML {
 		}
 	}
 
-	public boolean supprimer(I_Produit p) {
+	public boolean supprimer(I_Produit p, String nomCatalogue) {
 		try {
 			Element root = doc.getRootElement();
-			Element prod = chercheProduit(p.getNom());
+			Element prod = chercheProduit(p.getNom(), nomCatalogue);
 			if (prod != null) {
 				root.removeContent(prod);
 				return sauvegarde();
@@ -71,28 +71,40 @@ public class ProduitDAO_XML {
 		}
 	}
 
-	public I_Produit lire(String nom) {
-		Element e = chercheProduit(nom);
+	public I_Produit lire(String nom, String nomCatalogue) {
+		Element e = chercheProduit(nom, nomCatalogue);
 		if (e != null)
 			return new Produit(e.getAttributeValue("nom"), Double.parseDouble(e.getChildText("prixHT")), Integer.parseInt(e.getChildText("quantite")));
 		else
 			return null;
 	}
 
-	public List<I_Produit> lireTous() {
-
+	public List<I_Produit> lireTous(String nomCatalogue) 
+	{
 		List<I_Produit> l = new ArrayList<I_Produit>();
-		try {
+
+		try
+		{
 			Element root = doc.getRootElement();
 			List<Element> lProd = root.getChildren("produit");
-
-			for (Element prod : lProd) {
-				String nomP = prod.getAttributeValue("nom");
-				Double prix = Double.parseDouble(prod.getChild("prixHT").getText());
-				int qte = Integer.parseInt(prod.getChild("quantite").getText());
-				l.add(new Produit(nomP, prix, qte));
-			}
-		} catch (Exception e) {
+			
+			Iterator<Element> it = lProd.iterator();
+					
+			while(it.hasNext()) 
+			{			
+				Element elementTemp = it.next();
+				
+				if(elementTemp.getChild("catalogue").getValue().equals(nomCatalogue))
+				{
+					String nomP = elementTemp.getAttributeValue("nom");
+					Double prix = Double.parseDouble(elementTemp.getChild("prixHT").getText());
+					int qte = Integer.parseInt(elementTemp.getChild("quantite").getText());
+					l.add(new Produit(nomP, prix, qte));
+				}
+			}	
+		} 
+		catch (Exception e) 
+		{
 			System.out.println("erreur lireTous tous les produits");
 		}
 		return l;
@@ -110,16 +122,23 @@ public class ProduitDAO_XML {
 			return false;
 		}
 	}
-
-	private Element chercheProduit(String nom) {
+	
+	public Element chercheProduit(String nom, String nomCatalogue)
+	{
 		Element root = doc.getRootElement();
 		List<Element> lProd = root.getChildren("produit");
-		int i = 0;
-		while (i < lProd.size() && !lProd.get(i).getAttributeValue("nom").equals(nom))
-			i++;
-		if (i < lProd.size())
-			return lProd.get(i);
-		else
-			return null;
+		
+		Iterator<Element> it = lProd.iterator();
+				
+		while(it.hasNext()) 
+		{			
+			Element elementTemp = it.next();
+			
+			if(elementTemp.getAttributeValue("nom").equals(nom) && elementTemp.getChild("catalogue").getValue().equals(nomCatalogue))
+			{
+				return elementTemp;
+			}			
+		}
+		return null;
 	}
 }

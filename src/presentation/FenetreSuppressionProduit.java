@@ -3,7 +3,6 @@ package presentation;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
 import application.ProduitControlleur;
 import exceptions.ProduitException;
 

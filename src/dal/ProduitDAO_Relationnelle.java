@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,19 +35,23 @@ public class ProduitDAO_Relationnelle implements I_ProduitDAO
 	}
 	
 	/**
-	 * Ajouter un produit
+	 * Ajoute un produit
 	 * 
-	 * @param produit Le produit à ajouter
+	 * @param nom Nom du produit
+	 * @param prixHT Prix du produit
+	 * @param quantite Quantité du produit
+	 * @param nomCatalogue Nom du catalogue
 	 * @return True ou false en fonction de si le produit a été ajouté à la BDD
 	 */
-	public boolean create(String nom, double prixHT, int quantite)
+	public boolean create(String nom, double prixHT, int quantite, String nomCatalogue)
 	{	
 		try
 		{
-			CallableStatement cst = cn.prepareCall("{call nouveauProduit(?, ?, ?)}");
+			CallableStatement cst = cn.prepareCall("{call nouveauProduit(?, ?, ?, ?)}");
 			cst.setString(1, nom);
 			cst.setDouble(2, prixHT);
 			cst.setInt(3, quantite);
+			cst.setString(4, nomCatalogue);
 			
 			// executeUpdate retourne le nombre de tuples ajoutées
 			if(cst.executeUpdate() > 0)
@@ -66,17 +69,19 @@ public class ProduitDAO_Relationnelle implements I_ProduitDAO
 	}
 	
 	/**
-	 * Supprimer un produit
+	 * Supprime un produit
 	 * 
 	 * @param nom Le nom du produit
+	 * @param nomCatalogue Nom du catalogue
 	 * @return True ou false en fonction de si le produit a été supprimé de la BDD
 	 */
-	public boolean delete(String nom)
+	public boolean delete(String nom, String nomCatalogue)
 	{	
 		try
 		{
-			PreparedStatement pst = cn.prepareStatement("DELETE FROM Produits WHERE nom = ?");
+			PreparedStatement pst = cn.prepareStatement("DELETE FROM Produits WHERE nom = ? AND idCatalogue = findIdCatalogue(?)");
 			pst.setString(1, nom);
+			pst.setString(2, nomCatalogue);
 			
 			if(pst.executeUpdate() > 0)
 			{
@@ -93,19 +98,21 @@ public class ProduitDAO_Relationnelle implements I_ProduitDAO
 	}
 	
 	/**
-	 * Modifier la quantité d'un produit
+	 * Modifie la quantité d'un produit
 	 * 
 	 * @param nom Le nom du produit
 	 * @param quantite La nouvelle quantité
+	 * @param nomCatalogue Nom du catalogue
 	 * @return True ou false en fonction de si le produit a été modifié dans la BDD
 	 */
-	public boolean updateQuantite(String nom, int quantite)
+	public boolean updateQuantite(String nom, int quantite, String nomCatalogue)
 	{	
 		try
 		{
-			PreparedStatement pst = cn.prepareStatement("UPDATE Produits SET quantite = ? WHERE nom = ?");
+			PreparedStatement pst = cn.prepareStatement("UPDATE Produits SET quantite = ? WHERE nom = ? AND idCatalogue = findIdCatalogue(?)");
 			pst.setInt(1, quantite);
 			pst.setString(2, nom);
+			pst.setString(3, nomCatalogue);
 			
 			if(pst.executeUpdate() > 0)
 			{
@@ -122,19 +129,22 @@ public class ProduitDAO_Relationnelle implements I_ProduitDAO
 	}
 	
 	/**
-	 * Récupèrer tous les produits
+	 * Récupère tous les produits d'un catalogue
 	 * 
-	 * @return Une liste de produits ou null
+	 * @param nomCatalogue Le nom du catalogue
+	 * @return La liste de produits
 	 */
-	public List<I_Produit> findAll()
+	public List<I_Produit> findAll(String nomCatalogue)
 	{
 		List<I_Produit> produits = null;
 		
 		try
 		{
-			Statement st = cn.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_READ_ONLY);
-			ResultSet rs = st.executeQuery("SELECT * FROM Produits");
+			PreparedStatement pst = cn.prepareStatement("SELECT * FROM Produits WHERE idCatalogue = findIdCatalogue(?)");
+			pst.setString(1, nomCatalogue);
 			
+			ResultSet rs = pst.executeQuery();
+						
 			produits = new ArrayList<I_Produit>();
 			
 			while(rs.next())

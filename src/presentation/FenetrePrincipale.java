@@ -3,11 +3,8 @@ package presentation;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
-import application.ApplicationControlleur;
+import application.CatalogueControlleur;
 import dal.OracleConnexion;
-
-
 
 public class FenetrePrincipale extends JFrame implements ActionListener,
 		WindowListener {
@@ -22,11 +19,11 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	private JButton btQuitter;
 
 	// Controlleur qui permet de gérer les autres controlleurs
-	private ApplicationControlleur applicationControlleur;
+	private CatalogueControlleur catalogueControlleur;
 	
-	public FenetrePrincipale() {
+	public FenetrePrincipale(CatalogueControlleur catalogueControlleur) {
 		
-		applicationControlleur = new ApplicationControlleur();
+		this.catalogueControlleur = catalogueControlleur;
 		
 		setTitle("Exercice Produits");
 		setBounds(500, 500, 320, 250);
@@ -82,32 +79,30 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 //		String[] tabCategories = new String[] {"Bio", "Luxe" };
 		
 		if (e.getSource() == btAfficher)
-			new FenetreAffichage(applicationControlleur.getStockControlleur());
+			new FenetreAffichage(catalogueControlleur.getStockControlleur());
 		if (e.getSource() == btNouveauProduit)
 //			new FenetreNouveauProduit(tabCategories);
-			new FenetreNouveauProduit(applicationControlleur.getProduitControlleur());
+			new FenetreNouveauProduit(catalogueControlleur.getProduitControlleur());
 		if (e.getSource() == btSupprimerProduit)
-			new FenetreSuppressionProduit(applicationControlleur.getProduitControlleur());
+			new FenetreSuppressionProduit(catalogueControlleur.getProduitControlleur());
 //		if (e.getSource() == btNouvelleCategorie)
 //			new FenetreNouvelleCategorie();
 //		if (e.getSource() == btSupprimerCategorie)
 //			new FenetreSuppressionCategorie(tabCategories);
 		if (e.getSource() == btAchat)
-			new FenetreAchat(applicationControlleur.getAchatVenteControlleur());
+			new FenetreAchat(catalogueControlleur.getAchatVenteControlleur());
 		if (e.getSource() == btVente)
-			new FenetreVente(applicationControlleur.getAchatVenteControlleur());
+			new FenetreVente(catalogueControlleur.getAchatVenteControlleur());
 		if (e.getSource() == btQuitter){
-			System.out.println("Au revoir");
+			// Fermeture de la connexion à la BDD
+			OracleConnexion.deconnexion();
 			System.exit(0);
 		}	
 	}
 
 	public void windowClosing(WindowEvent arg0) {
-		System.out.println("Au revoir");
-		
 		// Fermeture de la connexion à la BDD
 		OracleConnexion.deconnexion();
-		
 		System.exit(0);
 	}
 
@@ -117,11 +112,5 @@ public class FenetrePrincipale extends JFrame implements ActionListener,
 	public void windowDeiconified(WindowEvent arg0) {}
 	public void windowIconified(WindowEvent arg0) {}
 	public void windowOpened(WindowEvent arg0) {}
-
-	
-	
-	public static void main(String[] args) {
-		new FenetrePrincipale();
-	}
 
 }

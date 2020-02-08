@@ -5,7 +5,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
-
+import dal.CatalogueDAO_Relationnelle;
+import dal.I_CatalogueDAO;
 import dal.OracleConnexion;
 
 import java.util.Iterator;
@@ -24,24 +25,25 @@ public class Catalogue implements I_Catalogue
 	private List<I_Produit> lesProduits;
 	
 	/**
-	 * Constructeur de la classe CatalogueProduit
+	 * Nom du catalogue
 	 */
-	public Catalogue() 
-	{
-		getProduits();
-	}
+	private String nom;
 	
 	/**
-	 * Récupération des produits de la BDD
-	 * 
-	 * @return Les produits stockés dans la BDD
+	 * Le DAO de la classe Catalogue
 	 */
-	public void getProduits() 
+	private static I_CatalogueDAO dao = new CatalogueDAO_Relationnelle(OracleConnexion.getInstance());
+	
+	/**
+	 * Constructeur de la classe CatalogueProduit
+	 */
+	public Catalogue(String nom) 
 	{
-		lesProduits = Produit.getAll();
+		this.nom = nom;
+		
+		lesProduits = Produit.getAll(this.nom);
 	}
-
-
+	
 	/**
 	 * Ajouter un produit
 	 * 
@@ -58,7 +60,7 @@ public class Catalogue implements I_Catalogue
 				// On créé un produit temporaire
 				Produit produitBDD = new Produit(produit.getNom(), produit.getPrixUnitaireHT(), produit.getQuantite());
 				
-				if(produitBDD.save() && lesProduits.add(produitBDD))
+				if(produitBDD.save(this.nom) && lesProduits.add(produitBDD))
 				{
 					return true;
 				}
@@ -84,7 +86,7 @@ public class Catalogue implements I_Catalogue
 			// On créé un produit temporaire
 			Produit produitBDD = new Produit(nom, prix, qte);
 			
-			if(produitBDD.save() && lesProduits.add(produitBDD))
+			if(produitBDD.save(this.nom) && lesProduits.add(produitBDD))
 			{
 				return true;
 			}
@@ -116,7 +118,7 @@ public class Catalogue implements I_Catalogue
 					// On créé un produit temporaire
 					Produit produitBDD = new Produit(produitTemp.getNom(), produitTemp.getPrixUnitaireHT(), produitTemp.getQuantite());
 					
-					if(produitBDD.save() && lesProduits.add(produitBDD))
+					if(produitBDD.save(this.nom) && lesProduits.add(produitBDD))
 					{
 						produitAjoute++;
 					}
@@ -142,9 +144,8 @@ public class Catalogue implements I_Catalogue
 			// On récupère le produit
 			Produit produitTemp = (Produit) lesProduits.get(indexProduit);			
 			
-			if(produitTemp.delete() && lesProduits.remove(indexProduit) != null)
+			if(produitTemp.delete(this.nom) && lesProduits.remove(indexProduit) != null)
 			{
-				System.out.println("oui");
 				return true;
 			}
 		}
@@ -172,7 +173,7 @@ public class Catalogue implements I_Catalogue
 				
 				if(produitTemp.ajouter(qteAchetee))
 				{	
-					if(produitTemp.updateQuantite())
+					if(produitTemp.updateQuantite(this.nom))
 					{
 						return true;
 					}
@@ -208,7 +209,7 @@ public class Catalogue implements I_Catalogue
 				
 				if(produitTemp.enlever(qteVendue))
 				{					
-					if(produitTemp.updateQuantite())
+					if(produitTemp.updateQuantite(this.nom))
 					{
 						return true;
 					}
@@ -340,7 +341,7 @@ public class Catalogue implements I_Catalogue
 	 */
 	public String toString() 
 	{
-		String message = "";
+		String message = "Catalogue : " + this.nom + "\n\n";
 		
 		Iterator<I_Produit> it = lesProduits.iterator();
 		
@@ -352,5 +353,55 @@ public class Catalogue implements I_Catalogue
 		}
 		message += "\n" + "Montant total TTC du stock : " + String.format("%.2f", getMontantTotalTTC()) + " €";
 		return message;
+	}
+	
+	/**
+	 * Récupère le nom du catalogue
+	 * 
+	 * @return Le nom du catalogue
+	 */
+	public String getNom() 
+	{
+		return this.nom;
+	}
+	
+	/**
+	 * Sauvegarde le catalogue dans la BDD
+	 * 
+	 * @return True ou false en fonction de si le catalogue a été sauvegardé
+	 */
+	public boolean save()
+	{
+		return dao.create(this.nom);
+	}
+	
+	/**
+	 * Supprime le catalogue dans la BDD
+	 * 
+	 * @return True ou false en fonction de si le catalogue a été supprimé
+	 */
+	public boolean delete()
+	{
+		return dao.delete(this.nom);
+	}
+	
+	/**
+	 * Récupère tous les catalogue dans la BDD
+	 * 
+	 * @return La liste des catalogue ou null
+	 */
+	public static List<I_Catalogue> getAll()
+	{
+		return dao.findAll();
+	}
+	
+	/**
+	 * Récupère le nombre de produit d'un catalogue
+	 * 
+	 * @return Le nombre de produit
+	 */
+	public int getNombreProduits()
+	{		
+		return dao.getNombreProduits(this.nom);
 	}
 }

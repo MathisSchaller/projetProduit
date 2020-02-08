@@ -1,2 +1,6 @@
-/metier/
+/application/
+/presentation/
+/exceptions/
 /dal/
+/metier/
+/Test.class

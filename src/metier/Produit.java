@@ -105,7 +105,7 @@ public class Produit implements I_Produit
 	{
 		return this.quantiteStock;
 	}
-
+	
 	/**
 	 * Récupère le prix unitaire HT du produit
 	 * 
@@ -154,40 +154,44 @@ public class Produit implements I_Produit
 	/**
 	 * Sauvegarde le produit dans la BDD
 	 * 
+	 * @param nomCatalogue Le nom du catalogue
 	 * @return True ou false en fonction de si le produit a été sauvegardé
 	 */
-	public boolean save()
+	public boolean save(String nomCatalogue)
 	{
-		return dao.create(this.nom, this.prixHT, this.quantiteStock);
+		return dao.create(this.nom, this.prixHT, this.quantiteStock, nomCatalogue);
 	}
 	
 	/**
 	 * Supprime le produit dans la BDD
 	 * 
+	 * @param nomCatalogue Le nom du catalogue
 	 * @return True ou false en fonction de si le produit a été supprimé
 	 */
-	public boolean delete()
+	public boolean delete(String nomCatalogue)
 	{
-		return dao.delete(this.nom);
+		return dao.delete(this.nom, nomCatalogue);
 	}
 	
 	/**
 	 * Modifie la quantité du produit dans la BDD
 	 * 
+	 * @param nomCatalogue Le nom du catalogue
 	 * @return True ou false en fonction de si la quantité du produit a été modifié
 	 */
-	public boolean updateQuantite()
+	public boolean updateQuantite(String nomCatalogue)
 	{
-		return dao.updateQuantite(this.nom, this.quantiteStock);
+		return dao.updateQuantite(this.nom, this.quantiteStock, nomCatalogue);
 	}
 	
 	/**
-	 * Récupère tous les produits dans la BDD
+	 * Récupère tous les produits d'un catalogue dans la BDD
 	 * 
+	 * @param nomCatalogue Le nom du catalogue
 	 * @return La liste des produits ou null
 	 */
-	public static List<I_Produit> getAll()
+	public static List<I_Produit> getAll(String nomCatalogue)
 	{
-		return dao.findAll();
+		return dao.findAll(nomCatalogue);
 	}
 }
