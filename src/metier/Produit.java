@@ -1,8 +1,7 @@
 package metier;
 
 import java.util.List;
-
-import dal.ProduitDAOFactory;
+import dal.CataloguesProduitsFactory;
 import dal.I_ProduitDAO;
 
 /**
@@ -36,7 +35,8 @@ public class Produit implements I_Produit
 	/**
 	 * Le DAO de la classe Produit créé par la fabrique ProduitDAOFactory
 	 */
-	private static I_ProduitDAO dao = ProduitDAOFactory.getInstance().createProduitDAO("");
+	private static I_ProduitDAO dao = CataloguesProduitsFactory.getInstance().createProduitDAO();
+	//ProduitDAOFactory.getInstance().createProduitDAO("");
 	
 	/**
 	 * Constructeur de la classe Produit

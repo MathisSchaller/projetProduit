@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.Arrays;
 import java.util.List;
-import dal.CatalogueDAO_Relationnelle;
+import dal.CataloguesProduitsFactory;
 import dal.I_CatalogueDAO;
 import dal.OracleConnexion;
 
@@ -32,7 +32,7 @@ public class Catalogue implements I_Catalogue
 	/**
 	 * Le DAO de la classe Catalogue
 	 */
-	private static I_CatalogueDAO dao = new CatalogueDAO_Relationnelle(OracleConnexion.getInstance());
+	private static I_CatalogueDAO dao = CataloguesProduitsFactory.getInstance().createCatalogueDAO();
 	
 	/**
 	 * Constructeur de la classe CatalogueProduit
